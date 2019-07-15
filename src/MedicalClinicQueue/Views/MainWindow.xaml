@@ -1,0 +1,36 @@
+﻿<Window x:Class="MedicalClinicQueue.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedicalClinicQueue.Views"
+        xmlns:prism="http://prismlibrary.com/"
+        mc:Ignorable="d"
+        Title="Medical Clinic Queue" 
+        Height="450"
+        Width="700"
+        WindowStartupLocation="CenterScreen"
+        prism:ViewModelLocator.AutoWireViewModel="True">
+    <Window.Background>
+        <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+            <GradientStop Color="#FFBABABA"/>
+            <GradientStop Color="#FFC2C2C2" Offset="1"/>
+            <GradientStop Color="#FFEBEBEB" Offset="0.485"/>
+        </LinearGradientBrush>
+    </Window.Background>
+    <Grid>
+        <ScrollViewer Margin="10,10,10,75.2" VerticalScrollBarVisibility="Visible">
+            <ItemsControl ItemsSource="{Binding ServiceItemControls}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel IsItemsHost="True" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </ScrollViewer>
+        <Button Content="Обнулить все очереди" Command="{Binding ResetAllQueueCountsCommand}" HorizontalAlignment="Left" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="134" Height="30" Background="White"/>
+        <Button Content="Добавить новый элемент" Command="{Binding AddServiceItemCommand}" HorizontalAlignment="Left" Margin="160,0,0,10" VerticalAlignment="Bottom" Width="158" Height="30" Background="White"/>
+        <TextBlock HorizontalAlignment="Left" Margin="370,392,0,0" TextWrapping="Wrap" Text="{Binding TestP}" VerticalAlignment="Top"/>
+        <Button Content="Настройки" Command="{Binding OpenSettingsCommand}" HorizontalAlignment="Right" Margin="0,0,9.6,10" VerticalAlignment="Bottom" Width="98" Height="30" Background="White"/>
+    </Grid>
+</Window>
