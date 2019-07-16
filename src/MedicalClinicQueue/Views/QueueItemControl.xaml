@@ -36,7 +36,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <TextBox x:Name="serviceNameTB" HorizontalAlignment="Left" TextAlignment="Center" Height="32" Margin="10,5,0,0" TextWrapping="Wrap" Text="{Binding ElementName=itemControl, Path=ServiceItem.Name}" VerticalAlignment="Top" Width="123" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" LostFocus="ServiceNameTB_LostFocus"/>
+        <TextBox x:Name="serviceNameTB" HorizontalAlignment="Left" TextAlignment="Center" Height="32" Margin="10,5,0,0" TextWrapping="Wrap" Text="{Binding ElementName=itemControl, Path=ServiceItem.Name}" VerticalAlignment="Top" Width="123" Background="{x:Null}" BorderBrush="{x:Null}" FontWeight="Bold" LostFocus="ServiceNameTB_LostFocus" FontSize="10"/>
         <TextBlock x:Name="queueCountTB" HorizontalAlignment="Left" TextAlignment="Center" Margin="78,70,0,0" TextWrapping="Wrap" Text="{Binding ElementName=itemControl, Path=ServiceItem.QueueCount}" VerticalAlignment="Top" Width="62" />
         <TextBlock HorizontalAlignment="Left" TextAlignment="Center" Margin="10,72,0,-10" TextWrapping="Wrap" Text="Последный №" VerticalAlignment="Top" Width="68" FontSize="10" />
         <Button x:Name="addToQueueBtn" Content="Добавить в очередь" HorizontalAlignment="Left" Height="30" Margin="10,37,0,0" Style="{DynamicResource ButtonStyle1}" VerticalAlignment="Top" Width="135" Click="AddToQueueBtn_Click"/>
