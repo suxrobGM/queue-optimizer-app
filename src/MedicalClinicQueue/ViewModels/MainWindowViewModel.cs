@@ -1,11 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
+using System.Windows.Data;
 using Prism.Commands;
 using MedicalClinicQueue.Models;
 using MedicalClinicQueue.Views;
 using MedicalClinicQueue.Data;
-using System.Linq;
 
 namespace MedicalClinicQueue.ViewModels
 {
@@ -20,31 +21,38 @@ namespace MedicalClinicQueue.ViewModels
 
         public MainWindowViewModel()
         {
-            ServiceItemControls = new ObservableCollection<QueueItemControl>();
+            ServiceItemControls = new ObservableCollection<QueueItemControl>();           
+
             using (_db = new ApplicationDbContext())
             {
                 _db.Database.EnsureCreated();
                 var serviceItems = _db.ServiceItems;
                 foreach (var item in serviceItems)
                 {
-                    var queueItemControl = new QueueItemControl() { DataContext = item };
-                    queueItemControl.removeFromQueueBtn.Click += RemoveItemFromQueue;
-                    ServiceItemControls.Add(queueItemControl);
+                    AddServiceItem(item);
                 }                
             }
-            
+
             AddServiceItemCommand = new DelegateCommand(() =>
             {
-                AddServiceItem("Имя доктора");
+                using (_db = new ApplicationDbContext())
+                {
+                    var serviceItem = new ServiceItem() { Name = "ИМЯ_ДОКТОРА" };
+                    AddServiceItem(serviceItem);
+
+                    _db.Database.EnsureCreated();
+                    _db.ServiceItems.Add(serviceItem);
+                    _db.SaveChanges();
+                }
             });
 
             ResetAllQueueCountsCommand = new DelegateCommand(() =>
             {
-                foreach (var itemControl in ServiceItemControls)
+                using (_db = new ApplicationDbContext())
                 {
-                    itemControl.ServiceItem.QueueCount = 0;
-                    using (_db = new ApplicationDbContext())
+                    foreach (var itemControl in ServiceItemControls)
                     {
+                        itemControl.ServiceItem.QueueCount = 0;
                         var serviceItems = _db.ServiceItems;
                         foreach (var item in serviceItems)
                         {
@@ -52,7 +60,7 @@ namespace MedicalClinicQueue.ViewModels
                         }
                         _db.SaveChanges();
                     }
-                }
+                }                
             });
 
             OpenSettingsCommand = new DelegateCommand(() =>
@@ -61,20 +69,12 @@ namespace MedicalClinicQueue.ViewModels
                 settingsWindow.ShowDialog();
             });
         }
-
-        private void AddServiceItem(string serviceName)
-        {         
-            using (_db = new ApplicationDbContext())
-            {
-                var serviceItem = new ServiceItem() { Name = serviceName };
-                var queuItemControl = new QueueItemControl() { DataContext = serviceItem };
-                queuItemControl.removeFromQueueBtn.Click += RemoveItemFromQueue;
-                ServiceItemControls.Add(queuItemControl);
-
-                _db.Database.EnsureCreated();                              
-                _db.ServiceItems.Add(serviceItem);
-                _db.SaveChanges();
-            }
+       
+        private void AddServiceItem(ServiceItem serviceItem)
+        {
+            var queueItemControl = new QueueItemControl() { DataContext = serviceItem };
+            queueItemControl.removeFromQueueBtn.Click += RemoveItemFromQueue;
+            ServiceItemControls.Add(queueItemControl);
         }
 
         private void RemoveItemFromQueue(object sender, RoutedEventArgs e)
