@@ -1,7 +1,7 @@
-﻿using MedicalClinicQueue.Data;
-using MedicalClinicQueue.Models;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Printing;
+using MedicalClinicQueue.Data;
+using MedicalClinicQueue.Models;
 
 namespace MedicalClinicQueue.Services
 {

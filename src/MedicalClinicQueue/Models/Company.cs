@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Prism.Mvvm;
+﻿using System.IO;
 using System.Drawing.Printing;
-using System.IO;
+using Newtonsoft.Json;
+using Prism.Mvvm;
 using MedicalClinicQueue.Extensions;
 
 namespace MedicalClinicQueue.Models
@@ -21,7 +20,7 @@ namespace MedicalClinicQueue.Models
         {
             Company company;
 
-            if (!File.Exists(settingsJsonFile) || !JsonExtensions.IsValidSchema<Company>(File.ReadAllText(settingsJsonFile)))
+            if (!File.Exists(settingsJsonFile) || string.IsNullOrWhiteSpace(File.ReadAllText(settingsJsonFile)))
             {
                 company = new Company()
                 {

@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
-using System.Windows.Data;
 using Prism.Commands;
 using MedicalClinicQueue.Models;
 using MedicalClinicQueue.Views;

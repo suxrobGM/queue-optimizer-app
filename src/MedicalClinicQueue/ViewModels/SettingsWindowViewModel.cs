@@ -1,10 +1,10 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Drawing.Printing;
+using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using Prism.Commands;
 using MedicalClinicQueue.Models;
-using System.Drawing.Printing;
-using System.Collections.ObjectModel;
 using MedicalClinicQueue.Data;
 
 namespace MedicalClinicQueue.ViewModels
